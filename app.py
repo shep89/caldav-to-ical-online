@@ -17,7 +17,7 @@ def export_calendar(uri, username, password):
     principal = client.principal()
     import_calendar = principal.calendars()[0]
     events = import_calendar.events()
-    logging.log(f'Calendar {uri} has {len(events)} events.')
+    logging.info(f'Calendar {uri} has {len(events)} events.')
     for import_event in import_calendar.events():
         export_event = Event()
         for subcomponent in import_event.icalendar_instance.subcomponents:
