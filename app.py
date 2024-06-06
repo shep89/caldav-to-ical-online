@@ -28,9 +28,11 @@ def export_calendar(uri, username, password):
 @routes.get('/')
 async def hello(request):
     caldav_uri = request.rel_url.query.get('uri', None)
-    caldav_usr = request.rel_url.query.get('usr', None)
-    caldav_pwd = request.rel_url.query.get('pwd', None)
-    return web.Response(body=export_calendar(caldav_uri, caldav_usr, caldav_pwd))
+    if caldav_uri:
+        caldav_usr = request.rel_url.query.get('usr', None)
+        caldav_pwd = request.rel_url.query.get('pwd', None)
+        return web.Response(body=export_calendar(caldav_uri, caldav_usr, caldav_pwd))
+    return web.Response(status=404)
 
 app = web.Application()
 app.add_routes(routes)
